@@ -7,14 +7,15 @@ from dotenv import load_dotenv
 from openai import OpenAI
 from datetime import datetime
 from email.header import decode_header
+import streamlit as st
 
 load_dotenv()
 
-EMAIL = os.getenv("EMAIL_ADDRESS")
-PASSWORD = os.getenv("EMAIL_PASSWORD")
+EMAIL = st.secrets["EMAIL_ADDRESS"]
+PASSWORD = st.secrets("EMAIL_PASSWORD")
 IMAP_SERVER = "imap.one.com"
 IMAP_PORT = 993
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
 
 client = OpenAI(api_key=OPENAI_API_KEY)
 

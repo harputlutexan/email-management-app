@@ -8,13 +8,13 @@ import random
 from email.message import EmailMessage
 from dotenv import load_dotenv
 from datetime import datetime
-
+import streamlit as st
 load_dotenv()
 
 SMTP_SERVER = "send.one.com"
 SMTP_PORT = 465
-SMTP_USER = os.getenv("EMAIL_ADDRESS")
-SMTP_PASSWORD = os.getenv("EMAIL_PASSWORD")
+SMTP_USER = st.secrets("EMAIL_ADDRESS")
+SMTP_PASSWORD = st.secrets("EMAIL_PASSWORD")
 
 BATCH_SIZE = 10
 DELAY_BETWEEN_EMAILS = (6, 12)
