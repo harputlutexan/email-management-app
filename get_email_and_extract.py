@@ -12,7 +12,7 @@ import streamlit as st
 load_dotenv()
 
 EMAIL = st.secrets["EMAIL_ADDRESS"]
-PASSWORD = st.secrets("EMAIL_PASSWORD")
+PASSWORD = st.secrets["EMAIL_PASSWORD"]
 IMAP_SERVER = "imap.one.com"
 IMAP_PORT = 993
 OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
