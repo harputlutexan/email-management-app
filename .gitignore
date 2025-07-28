@@ -1,0 +1,16 @@
+# Python and Streamlit ignore rules
+__pycache__/
+*.py[cod]
+*.egg-info/
+.env
+.secrets/
+*.log
+
+# Virtual environment
+.venv/
+venv/
+env/
+ENV/
+
+# Streamlit secrets
+.streamlit/secrets.toml
