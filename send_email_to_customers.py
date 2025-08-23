@@ -79,7 +79,7 @@ Sales Manager | TheStar Trading
 
 
 def send_email_to_customers(query_product: str, test_email: str = None, progress_callback=None):
-    df = pd.read_excel("bazdata_final_with_emails_corrected_full.xlsx", engine="openpyxl")
+    df = pd.read_excel("bazdata_final_with_emails_corrected_full2.xlsx", engine="openpyxl")
 
 
     df = df.rename(columns={
