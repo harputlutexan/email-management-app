@@ -79,7 +79,7 @@ Sales Manager | TheStar Trading
 
 
 def send_email_to_customers(query_product: str, test_email: str = None, progress_callback=None):
-    df = pd.read_excel("bazdata_final_with_emails_corrected kopyası.xlsx")
+    df = pd.read_excel("/bazdata_final_with_emails_corrected_full.xlsx")
 
     df = df.rename(columns={
         "Gönderici Adı Ünvanı": "company_name",
