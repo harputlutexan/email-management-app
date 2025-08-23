@@ -60,7 +60,7 @@ TheStar Purchasing Team
 def send_email_to_suppliers(query_product: str, test_email: str = None, progress_callback=None):
     # [Load dotenv, SMTP info etc. same as before]
 
-    df = pd.read_excel("bazdata_final_with_emails_corrected.xlsx")
+    df = pd.read_excel("/bazdata_final_with_emails_corrected_full.xlsx")
     # [Clean and normalize columns, same as before]
 
     # Rename columns (required to make product_name etc. work)
