@@ -150,7 +150,7 @@ elif menu == "AI Chat (Assistant)":
                 from openai import OpenAI
 
                 # ✅ API key'i st.secrets içinden al
-                client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"].strip())
+                client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
                 assistant_id = "asst_8pJbOUPHAZ3NuMlw9Ona1TTW"  # 🔁 replace with your real ID
                 thread = client.beta.threads.create()
 
