@@ -148,9 +148,11 @@ elif menu == "AI Chat (Assistant)":
         with st.spinner("Assistant is thinking..."):
             try:
                 from openai import OpenAI
-                client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-                assistant_id = "asst_8pJbOUPHAZ3NuMlw9Ona1TTW"  # 🔁 replace with real ID
+                # ✅ API key'i st.secrets içinden al
+                client = OpenAI(api_key=st.secrets["openai"]["api_key"])
+
+                assistant_id = "asst_8pJbOUPHAZ3NuMlw9Ona1TTW"  # 🔁 replace with your real ID
                 thread = client.beta.threads.create()
 
                 client.beta.threads.messages.create(
@@ -182,6 +184,7 @@ elif menu == "AI Chat (Assistant)":
             st.chat_message("user").markdown(msg["content"])
         else:
             st.chat_message("assistant").markdown(msg["content"])
+
 
 elif menu == "Power BI Raporu":
     st.header("📊 Power BI Raporu")
