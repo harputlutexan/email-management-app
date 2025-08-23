@@ -103,29 +103,40 @@ def send_email_to_customers(query_product: str, test_email: str = None, progress
         server.login(SMTP_USER, SMTP_PASSWORD)
 
         for i, (_, row) in enumerate(df_filtered.iterrows()):
-            msg = EmailMessage()
-            msg["Subject"] = f"Offer Request – {row['product_name']}"
-            msg["From"] = f"Musab Uslu <{SMTP_USER}>"
-            msg["To"] = test_email if test_email else row["email"]
-            msg.set_content(create_email_body(row))
+            # Onay ekranı
+            st.subheader("📧 Email Gönderim Onayı")
+            st.write(f"**Müşteri:** {row['company_name']}")
+            st.write(f"**Ürün:** {row['product_name']}")
+            confirm = st.radio(f"{row['company_name']} için email gönderilsin mi?", ["Atla", "Gönder"], index=0, key=f"confirm_{i}")
 
-            try:
-                server.send_message(msg)
-                sent_log.append({
-                    "Company Name": row["company_name"],
-                    "Email": row["email"],
-                    "Product": row["product_name"],
-                    "Date Sent": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                })
+            if confirm == "Gönder":
+                msg = EmailMessage()
+                msg["Subject"] = f"Offer Request – {row['product_name']}"
+                msg["From"] = f"Musab Uslu <{SMTP_USER}>"
+                msg["To"] = test_email if test_email else row["email"]
+                msg.set_content(create_email_body(row))
 
-                pd.DataFrame(sent_log).to_excel("partial_log_customers.xlsx", index=False)
+                try:
+                    server.send_message(msg)
+                    sent_log.append({
+                        "Company Name": row["company_name"],
+                        "Email": row["email"],
+                        "Product": row["product_name"],
+                        "Date Sent": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                    })
 
-            except Exception as e:
-                print(f"❌ Error: {e}")
+                    pd.DataFrame(sent_log).to_excel("partial_log_customers.xlsx", index=False)
+                    st.success(f"✅ {row['company_name']} için email gönderildi")
+
+                except Exception as e:
+                    st.error(f"❌ Error: {e}")
+
+                time.sleep(random.uniform(*DELAY_BETWEEN_EMAILS))
+
+            else:
+                st.warning(f"⏭ {row['company_name']} için email gönderimi atlandı")
 
             if progress_callback:
                 progress_callback((i + 1) / total)
 
-            time.sleep(random.uniform(*DELAY_BETWEEN_EMAILS))
-
-    return f"{len(sent_log)} customer emails sent for product: {query_product}", sent_log
+    return f"{len(sent_log)} müşteri için email gönderildi ({query_product})", sent_log
